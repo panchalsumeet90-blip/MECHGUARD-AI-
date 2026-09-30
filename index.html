@@ -1,0 +1,1098 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MECHGUARD-AI | Machine Intelligence Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app">
+
+<!-- =========================================================
+     TOP NAVBAR
+========================================================= -->
+
+<header class="navbar" role="banner">
+
+    <div class="navbar__brand">
+
+        <div class="navbar__logo" aria-hidden="true">
+
+            <svg
+                viewBox="0 0 48 48"
+                width="32"
+                height="32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <circle
+                    cx="24"
+                    cy="24"
+                    r="20"
+                    stroke="currentColor"
+                    stroke-width="2"
+                />
+
+                <path
+                    d="M24 10v6M24 32v6M10 24h6M32 24h6
+                       M15.5 15.5l4.2 4.2
+                       M28.3 28.3l4.2 4.2
+                       M32.5 15.5l-4.2 4.2
+                       M19.7 28.3l-4.2 4.2"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                />
+
+                <circle
+                    cx="24"
+                    cy="24"
+                    r="6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                />
+            </svg>
+
+        </div>
+
+        <div class="navbar__titles">
+
+            <span class="navbar__title">
+                MECHGUARD-AI
+            </span>
+
+            <span class="navbar__subtitle">
+                AI MACHINE INTELLIGENCE
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="navbar__status">
+
+        <span
+            class="status-dot"
+            id="system-status-dot"
+            aria-hidden="true"
+        ></span>
+
+        <span
+            class="status-text"
+            id="system-status-text"
+        >
+            SYSTEM ONLINE
+        </span>
+
+    </div>
+
+</header>
+
+
+<div class="app__body">
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<nav
+    class="sidebar"
+    aria-label="Primary navigation"
+>
+
+    <ul class="sidebar__nav">
+
+        <li class="sidebar__item sidebar__item--active">
+
+            <a
+                href="#dashboard"
+                class="sidebar__link"
+                aria-current="page"
+            >
+
+                <span class="sidebar__icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect x="3" y="3" width="7" height="9" rx="1"/>
+                        <rect x="14" y="3" width="7" height="5" rx="1"/>
+                        <rect x="14" y="12" width="7" height="9" rx="1"/>
+                        <rect x="3" y="16" width="7" height="5" rx="1"/>
+                    </svg>
+
+                </span>
+
+                <span class="sidebar__label">
+                    Dashboard
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li class="sidebar__item">
+
+            <a
+                href="#ai-diagnosis"
+                class="sidebar__link"
+            >
+
+                <span class="sidebar__icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M12 2a5 5 0 0 0-5 5v1.5a3.5 3.5 0 0 0-2 3.15V16a3 3 0 0 0 3 3h.5a2.5 2.5 0 0 0 5 0h1a2.5 2.5 0 0 0 5 0h.5a3 3 0 0 0 3-3v-4.35A3.5 3.5 0 0 0 17 8.5V7a5 5 0 0 0-5-5Z"/>
+                        <path d="M9 12h.01M15 12h.01"/>
+                    </svg>
+
+                </span>
+
+                <span class="sidebar__label">
+                    AI Diagnosis
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li class="sidebar__item">
+
+            <a
+                href="#sensor-monitor"
+                class="sidebar__link"
+            >
+
+                <span class="sidebar__icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M3 12h4l2-7 4 14 2-7h6"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+
+                </span>
+
+                <span class="sidebar__label">
+                    Sensor Monitor
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li class="sidebar__item">
+
+            <a
+                href="#maintenance"
+                class="sidebar__link"
+            >
+
+                <span class="sidebar__icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4l-2.6 2.6-2-2 2.6-2.6Z"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+
+                </span>
+
+                <span class="sidebar__label">
+                    Maintenance
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li class="sidebar__item">
+
+            <a
+                href="#reports"
+                class="sidebar__link"
+            >
+
+                <span class="sidebar__icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"
+                            stroke-linejoin="round"
+                        />
+
+                        <path d="M14 3v5h5M9 13h6M9 17h6M9 9h2"/>
+                    </svg>
+
+                </span>
+
+                <span class="sidebar__label">
+                    Reports
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <li class="sidebar__item">
+
+            <a
+                href="#settings"
+                class="sidebar__link"
+            >
+
+                <span class="sidebar__icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="12" cy="12" r="3"/>
+
+                        <path
+                            d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.04 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.37a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.63 15a1.7 1.7 0 0 0-1.56-1.04H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.63 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.63a1.7 1.7 0 0 0 1.04-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.63a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.37 9a1.7 1.7 0 0 0 1.56 1.04H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"
+                        />
+                    </svg>
+
+                </span>
+
+                <span class="sidebar__label">
+                    Settings
+                </span>
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main
+    class="main-content"
+    id="dashboard"
+>
+
+
+<!-- =========================================================
+     DASHBOARD HEADER
+========================================================= -->
+
+<section class="dashboard-header">
+
+    <h1 class="dashboard-header__title">
+        Machine Intelligence Dashboard
+    </h1>
+
+    <p class="dashboard-header__description">
+        Enter machine sensor readings manually and use the AI
+        diagnosis engine to detect potential mechanical faults
+        and recommend predictive-maintenance actions.
+    </p>
+
+</section>
+
+
+<!-- =========================================================
+     MACHINE STATUS HERO
+========================================================= -->
+
+<section
+    class="hero-card"
+    aria-labelledby="hero-card-title"
+>
+
+    <div class="hero-card__info">
+
+        <h2
+            class="hero-card__machine-name"
+            id="hero-card-title"
+        >
+            Industrial Induction Motor
+        </h2>
+
+
+        <dl class="hero-card__meta">
+
+            <div class="hero-card__meta-item">
+
+                <dt>
+                    Machine ID
+                </dt>
+
+                <dd id="machine-id">
+                    MTR-001
+                </dd>
+
+            </div>
+
+
+            <div class="hero-card__meta-item">
+
+                <dt>
+                    Status
+                </dt>
+
+                <dd
+                    id="machine-status"
+                    class="badge badge--status"
+                >
+                    Monitoring
+                </dd>
+
+            </div>
+
+
+            <div class="hero-card__meta-item">
+
+                <dt>
+                    Operating Hours
+                </dt>
+
+                <dd id="machine-operating-hours">
+                    12,000 h
+                </dd>
+
+            </div>
+
+        </dl>
+
+    </div>
+
+
+    <div
+        class="hero-card__health"
+        aria-label="Machine health score"
+    >
+
+        <div
+            class="health-score"
+            id="health-score-visual"
+        >
+
+            <svg
+                class="health-score__ring"
+                viewBox="0 0 120 120"
+                width="140"
+                height="140"
+                aria-hidden="true"
+            >
+
+                <circle
+                    class="health-score__ring-bg"
+                    cx="60"
+                    cy="60"
+                    r="52"
+                    fill="none"
+                    stroke-width="10"
+                />
+
+                <circle
+                    class="health-score__ring-fill"
+                    id="health-score-ring-fill"
+                    cx="60"
+                    cy="60"
+                    r="52"
+                    fill="none"
+                    stroke-width="10"
+                />
+
+            </svg>
+
+
+            <div class="health-score__value">
+
+                <span
+                    class="health-score__number"
+                    id="health-score-value"
+                >
+                    70
+                </span>
+
+                <span class="health-score__max">
+                    / 100
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <span
+            class="risk-label risk-label--medium"
+            id="hero-risk-label"
+        >
+            MEDIUM RISK
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SENSOR CARDS
+========================================================= -->
+
+<section
+    class="sensor-grid"
+    aria-label="Machine sensor inputs"
+>
+
+
+<!-- TEMPERATURE -->
+
+<article
+    class="sensor-card"
+    id="sensor-card-temperature"
+>
+
+    <div class="sensor-card__icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <path
+                d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+
+    </div>
+
+
+    <div class="sensor-card__body">
+
+        <span class="sensor-card__label">
+            Temperature
+        </span>
+
+        <div class="sensor-input">
+
+            <input
+                type="number"
+                id="sensor-temperature-value"
+                value="82"
+                min="0"
+                step="0.1"
+                aria-label="Temperature in degrees Celsius"
+            >
+
+            <span>°C</span>
+
+        </div>
+
+    </div>
+
+</article>
+
+
+<!-- VIBRATION -->
+
+<article
+    class="sensor-card"
+    id="sensor-card-vibration"
+>
+
+    <div class="sensor-card__icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <path
+                d="M2 12h2l2-7 4 14 3-11 2 4h7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+
+    </div>
+
+
+    <div class="sensor-card__body">
+
+        <span class="sensor-card__label">
+            Vibration
+        </span>
+
+        <div class="sensor-input">
+
+            <input
+                type="number"
+                id="sensor-vibration-value"
+                value="5.2"
+                min="0"
+                step="0.1"
+                aria-label="Vibration in millimeters per second"
+            >
+
+            <span>mm/s</span>
+
+        </div>
+
+    </div>
+
+</article>
+
+
+<!-- RPM -->
+
+<article
+    class="sensor-card"
+    id="sensor-card-rpm"
+>
+
+    <div class="sensor-card__icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <circle cx="12" cy="12" r="9"/>
+            <path
+                d="M12 7v5l3 2"
+                stroke-linecap="round"
+            />
+        </svg>
+
+    </div>
+
+
+    <div class="sensor-card__body">
+
+        <span class="sensor-card__label">
+            RPM
+        </span>
+
+        <div class="sensor-input">
+
+            <input
+                type="number"
+                id="sensor-rpm-value"
+                value="1450"
+                min="0"
+                step="1"
+                aria-label="Motor RPM"
+            >
+
+            <span>RPM</span>
+
+        </div>
+
+    </div>
+
+</article>
+
+
+<!-- LOAD -->
+
+<article
+    class="sensor-card"
+    id="sensor-card-load"
+>
+
+    <div class="sensor-card__icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <path
+                d="M3 21h18M6 21V10l6-5 6 5v11"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+
+    </div>
+
+
+    <div class="sensor-card__body">
+
+        <span class="sensor-card__label">
+            Load
+        </span>
+
+        <div class="sensor-input">
+
+            <input
+                type="number"
+                id="sensor-load-value"
+                value="88"
+                min="0"
+                max="100"
+                step="0.1"
+                aria-label="Machine load percentage"
+            >
+
+            <span>%</span>
+
+        </div>
+
+    </div>
+
+</article>
+
+
+<!-- CURRENT -->
+
+<article
+    class="sensor-card"
+    id="sensor-card-current"
+>
+
+    <div class="sensor-card__icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <path
+                d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+
+    </div>
+
+
+    <div class="sensor-card__body">
+
+        <span class="sensor-card__label">
+            Current
+        </span>
+
+        <div class="sensor-input">
+
+            <input
+                type="number"
+                id="sensor-current-value"
+                value="32.5"
+                min="0"
+                step="0.1"
+                aria-label="Motor current in amperes"
+            >
+
+            <span>A</span>
+
+        </div>
+
+    </div>
+
+</article>
+
+
+<!-- OPERATING HOURS -->
+
+<article
+    class="sensor-card"
+    id="sensor-card-hours"
+>
+
+    <div class="sensor-card__icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <circle cx="12" cy="12" r="9"/>
+
+            <path
+                d="M12 7v5l4 2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+        </svg>
+
+    </div>
+
+
+    <div class="sensor-card__body">
+
+        <span class="sensor-card__label">
+            Operating Hours
+        </span>
+
+        <div class="sensor-input">
+
+            <input
+                type="number"
+                id="sensor-hours-value"
+                value="12000"
+                min="0"
+                step="1"
+                aria-label="Operating hours"
+            >
+
+            <span>h</span>
+
+        </div>
+
+    </div>
+
+</article>
+
+</section>
+
+
+<!-- =========================================================
+     AI DIAGNOSIS
+========================================================= -->
+
+<section
+    class="ai-diagnosis-card"
+    id="ai-diagnosis"
+    aria-labelledby="ai-diagnosis-title"
+>
+
+    <div class="ai-diagnosis-card__header">
+
+        <span
+            class="ai-diagnosis-card__icon"
+            aria-hidden="true"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                width="28"
+                height="28"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+            >
+                <path d="M12 2a5 5 0 0 0-5 5v1.5a3.5 3.5 0 0 0-2 3.15V16a3 3 0 0 0 3 3h.5a2.5 2.5 0 0 0 5 0h1a2.5 2.5 0 0 0 5 0h.5a3 3 0 0 0 3-3v-4.35A3.5 3.5 0 0 0 17 8.5V7a5 5 0 0 0-5-5Z"/>
+                <path d="M9 12h.01M15 12h.01"/>
+            </svg>
+
+        </span>
+
+
+        <h2
+            class="ai-diagnosis-card__title"
+            id="ai-diagnosis-title"
+        >
+            AI Diagnosis
+        </h2>
+
+    </div>
+
+
+    <div class="ai-diagnosis-card__body">
+
+        <dl class="ai-diagnosis-card__result">
+
+
+            <div class="ai-diagnosis-card__result-item">
+
+                <dt>
+                    Predicted Fault
+                </dt>
+
+                <dd
+                    id="predicted-fault"
+                    class="predicted-fault"
+                >
+                    OVERLOAD
+                </dd>
+
+            </div>
+
+
+            <div class="ai-diagnosis-card__result-item">
+
+                <dt>
+                    Confidence
+                </dt>
+
+                <dd id="diagnosis-confidence">
+                    61%
+                </dd>
+
+            </div>
+
+
+            <div class="ai-diagnosis-card__result-item">
+
+                <dt>
+                    Risk Level
+                </dt>
+
+                <dd
+                    id="diagnosis-risk-level"
+                    class="badge badge--risk-medium"
+                >
+                    MEDIUM
+                </dd>
+
+            </div>
+
+
+        </dl>
+
+
+        <div class="ai-diagnosis-card__recommendation">
+
+            <h3>
+                Recommendation
+            </h3>
+
+            <p id="diagnosis-recommendation">
+                Check machine load and reduce excessive load if necessary.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="ai-diagnosis-card__actions">
+
+        <button
+            type="button"
+            id="diagnose-machine-btn"
+            class="btn btn--primary"
+        >
+            DIAGNOSE MACHINE
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SENSOR ANALYTICS
+========================================================= -->
+
+<section
+    class="analytics-card"
+    id="sensor-monitor"
+    aria-labelledby="analytics-title"
+>
+
+    <div class="analytics-card__header">
+
+        <div>
+
+            <h2 class="analytics-card__title">
+                Sensor Analytics
+            </h2>
+
+            <p class="analytics-card__subtitle">
+                Machine sensor trends
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="analytics-card__chart"
+        id="sensor-chart-container"
+        role="img"
+        aria-label="Sensor analytics chart"
+    >
+
+        <p>
+            Sensor analytics will appear here.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAINTENANCE
+========================================================= -->
+
+<section
+    class="maintenance-card"
+    id="maintenance"
+    aria-labelledby="maintenance-title"
+>
+
+    <h2
+        class="maintenance-card__title"
+        id="maintenance-title"
+    >
+        Maintenance
+    </h2>
+
+
+    <dl class="maintenance-card__list">
+
+
+        <div class="maintenance-card__item">
+
+            <dt>
+                Maintenance Priority
+            </dt>
+
+            <dd
+                id="maintenance-priority"
+                class="badge badge--priority"
+            >
+                --
+            </dd>
+
+        </div>
+
+
+        <div class="maintenance-card__item">
+
+            <dt>
+                Recommended Inspection
+            </dt>
+
+            <dd id="maintenance-inspection">
+                --
+            </dd>
+
+        </div>
+
+
+        <div class="maintenance-card__item">
+
+            <dt>
+                Last Check
+            </dt>
+
+            <dd id="maintenance-last-check">
+                --
+            </dd>
+
+        </div>
+
+
+        <div class="maintenance-card__item">
+
+            <dt>
+                Next Maintenance
+            </dt>
+
+            <dd id="maintenance-next-due">
+                --
+            </dd>
+
+        </div>
+
+
+    </dl>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="app-footer">
+
+    <p class="app-footer__brand">
+        MECHGUARD-AI • Prototype
+    </p>
+
+    <p class="app-footer__note">
+        AI-assisted diagnosis using machine sensor data
+    </p>
+
+</footer>
+
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
+

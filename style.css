@@ -1,0 +1,947 @@
+/* ==========================================================================
+   MECHGUARD-AI — Machine Intelligence Dashboard
+   frontend/style.css
+   Plain CSS. No frameworks, no external dependencies.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. DESIGN TOKENS
+   ========================================================================== */
+:root {
+  /* --- Surfaces --- */
+  --bg-app: #0a0d12;
+  --bg-app-gradient: radial-gradient(circle at 15% 0%, #101722 0%, #0a0d12 45%, #07090d 100%);
+  --bg-panel: #10151d;
+  --bg-panel-raised: #141b25;
+  --bg-panel-glass: rgba(19, 26, 36, 0.6);
+  --bg-inset: #0c1117;
+
+  /* --- Borders / dividers --- */
+  --border-subtle: rgba(148, 163, 184, 0.1);
+  --border-soft: rgba(148, 163, 184, 0.16);
+  --border-cyan: rgba(45, 212, 230, 0.35);
+
+  /* --- Text --- */
+  --text-primary: #e7edf5;
+  --text-secondary: #93a2b8;
+  --text-muted: #5c6a7f;
+
+  /* --- Brand / accent --- */
+  --accent-cyan: #29d3e8;
+  --accent-cyan-bright: #6fe9f7;
+  --accent-cyan-dim: #0f7f91;
+  --accent-glow: rgba(41, 211, 232, 0.35);
+
+  /* --- Status colors --- */
+  --status-good: #33d68f;
+  --status-good-dim: rgba(51, 214, 143, 0.14);
+  --status-warning: #f0a83f;
+  --status-warning-dim: rgba(240, 168, 63, 0.14);
+  --status-critical: #f2596b;
+  --status-critical-dim: rgba(242, 89, 107, 0.14);
+  --status-info: var(--accent-cyan);
+  --status-info-dim: rgba(41, 211, 232, 0.12);
+
+  /* --- Typography --- */
+  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", "IBM Plex Mono", Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* --- Radii / spacing / motion --- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --gap-page: clamp(16px, 2.4vw, 32px);
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-med: 320ms;
+
+  /* --- Layout metrics --- */
+  --navbar-h: 68px;
+  --sidebar-w: 250px;
+  --sidebar-w-collapsed: 76px;
+}
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  background: var(--bg-app-gradient) fixed;
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, dt, dd, p {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+svg {
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   3. APP SHELL
+   ========================================================================== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__body {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - var(--navbar-h));
+}
+
+/* ==========================================================================
+   4. TOP NAVBAR
+   ========================================================================== */
+.navbar {
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 3vw, 32px);
+  background: rgba(10, 13, 18, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 0 var(--border-cyan), 0 12px 24px -18px rgba(41, 211, 232, 0.25);
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  color: var(--accent-cyan);
+  background: radial-gradient(circle at 30% 20%, rgba(41, 211, 232, 0.22), transparent 70%);
+  border: 1px solid var(--border-cyan);
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+.navbar__titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  min-width: 0;
+}
+
+.navbar__title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.navbar__subtitle {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--accent-cyan-dim);
+  white-space: nowrap;
+}
+
+.navbar__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--status-good-dim);
+  border: 1px solid rgba(51, 214, 143, 0.3);
+  flex-shrink: 0;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-good);
+  box-shadow: 0 0 0 0 rgba(51, 214, 143, 0.6);
+  animation: pulse-dot 2.2s var(--ease-standard) infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(51, 214, 143, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(51, 214, 143, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(51, 214, 143, 0); }
+}
+
+.status-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  color: var(--status-good);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   5. LEFT SIDEBAR
+   ========================================================================== */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: rgba(12, 16, 22, 0.7);
+  border-right: 1px solid var(--border-subtle);
+  padding: 20px 12px;
+  position: sticky;
+  top: var(--navbar-h);
+  align-self: flex-start;
+  height: calc(100vh - var(--navbar-h));
+  overflow-y: auto;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  transition: background var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
+}
+
+.sidebar__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.sidebar__label {
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.sidebar__link:hover {
+  background: rgba(41, 211, 232, 0.07);
+  color: var(--text-primary);
+  transform: translateX(2px);
+}
+
+.sidebar__item--active .sidebar__link {
+  background: linear-gradient(90deg, rgba(41, 211, 232, 0.16), rgba(41, 211, 232, 0.03));
+  border-color: var(--border-cyan);
+  color: var(--accent-cyan-bright);
+}
+
+.sidebar__item--active .sidebar__link .sidebar__icon {
+  filter: drop-shadow(0 0 5px var(--accent-glow));
+}
+
+/* ==========================================================================
+   6. MAIN CONTENT
+   ========================================================================== */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: var(--gap-page);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-page);
+}
+
+/* --- Dashboard header --- */
+.dashboard-header__title {
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.dashboard-header__description {
+  margin-top: 8px;
+  max-width: 72ch;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   7. SHARED SURFACES (cards / badges)
+   ========================================================================== */
+.hero-card,
+.sensor-card,
+.ai-diagnosis-card,
+.analytics-card,
+.maintenance-card {
+  background: linear-gradient(180deg, var(--bg-panel-raised), var(--bg-panel));
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.badge--status {
+  color: var(--status-info);
+  background: var(--status-info-dim);
+  border-color: rgba(41, 211, 232, 0.3);
+}
+
+.badge--risk-medium,
+.risk-label--medium {
+  color: var(--status-warning);
+  background: var(--status-warning-dim);
+  border-color: rgba(240, 168, 63, 0.35);
+}
+
+.badge--risk-low,
+.risk-label--low {
+  color: var(--status-good);
+  background: var(--status-good-dim);
+  border-color: rgba(51, 214, 143, 0.35);
+}
+
+.badge--risk-high,
+.risk-label--high {
+  color: var(--status-critical);
+  background: var(--status-critical-dim);
+  border-color: rgba(242, 89, 107, 0.35);
+}
+
+.badge--priority {
+  color: var(--status-warning);
+  background: var(--status-warning-dim);
+  border-color: rgba(240, 168, 63, 0.35);
+}
+
+/* ==========================================================================
+   8. MACHINE STATUS HERO CARD
+   ========================================================================== */
+.hero-card {
+  padding: clamp(20px, 3vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px 220px at 90% -10%, rgba(41, 211, 232, 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-card__info {
+  position: relative;
+  min-width: 240px;
+}
+
+.hero-card__machine-name {
+  font-size: clamp(19px, 2vw, 24px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.hero-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.hero-card__meta-item dt {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.hero-card__meta-item dd {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hero-card__health {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+/* --- Circular health score ring --- */
+.health-score {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.health-score__ring {
+  transform: rotate(-90deg);
+}
+
+.health-score__ring-bg {
+  stroke: rgba(148, 163, 184, 0.12);
+}
+
+.health-score__ring-fill {
+  stroke: var(--accent-cyan);
+  stroke-linecap: round;
+  stroke-dasharray: 326.73 326.73;
+  stroke-dashoffset: 98.02; /* 70 / 100 filled */
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+  transition: stroke-dashoffset 900ms var(--ease-standard);
+}
+
+.health-score__value {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.health-score__number {
+  font-family: var(--font-mono);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.health-score__max {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.risk-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   9. SENSOR CARDS
+   ========================================================================== */
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.sensor-card {
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: transform var(--dur-med) var(--ease-standard),
+              border-color var(--dur-med) var(--ease-standard),
+              box-shadow var(--dur-med) var(--ease-standard);
+}
+
+.sensor-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-cyan);
+  box-shadow: 0 14px 30px -18px rgba(41, 211, 232, 0.35);
+}
+
+.sensor-card__icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  color: var(--accent-cyan);
+  background: rgba(41, 211, 232, 0.09);
+  border: 1px solid rgba(41, 211, 232, 0.2);
+}
+
+.sensor-card__icon::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-good);
+  border: 2px solid var(--bg-panel);
+}
+
+.sensor-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sensor-card__label {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.sensor-card__value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   10. AI DIAGNOSIS SECTION
+   ========================================================================== */
+.ai-diagnosis-card {
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--border-cyan);
+  background:
+    radial-gradient(500px 200px at 100% 0%, rgba(41, 211, 232, 0.12), transparent 70%),
+    linear-gradient(180deg, var(--bg-panel-raised), var(--bg-panel));
+  box-shadow: 0 20px 50px -30px rgba(41, 211, 232, 0.45);
+}
+
+.ai-diagnosis-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.ai-diagnosis-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  color: var(--accent-cyan);
+  background: rgba(41, 211, 232, 0.12);
+  border: 1px solid var(--border-cyan);
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+.ai-diagnosis-card__title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ai-diagnosis-card__body {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.ai-diagnosis-card__result {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  padding: 18px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.ai-diagnosis-card__result-item dt {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.predicted-fault {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--status-warning);
+}
+
+#diagnosis-confidence {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ai-diagnosis-card__recommendation {
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: rgba(41, 211, 232, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-cyan);
+}
+
+.ai-diagnosis-card__recommendation h3 {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+}
+
+.ai-diagnosis-card__recommendation p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.ai-diagnosis-card__actions {
+  margin-top: 26px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   11. BUTTONS
+   ========================================================================== */
+.btn {
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  border-radius: var(--radius-sm);
+  padding: 14px 30px;
+  transition: transform var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard),
+              filter var(--dur-fast) var(--ease-standard);
+}
+
+.btn--primary {
+  color: #06171c;
+  background: linear-gradient(135deg, var(--accent-cyan-bright), var(--accent-cyan));
+  box-shadow: 0 10px 26px -10px rgba(41, 211, 232, 0.6);
+}
+
+.btn--primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px -10px rgba(41, 211, 232, 0.75);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+  filter: brightness(0.96);
+  box-shadow: 0 6px 16px -8px rgba(41, 211, 232, 0.55);
+}
+
+/* ==========================================================================
+   12. SENSOR ANALYTICS SECTION
+   ========================================================================== */
+.analytics-card {
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.analytics-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.analytics-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.analytics-card__subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.analytics-card__chart {
+  height: clamp(240px, 32vw, 340px);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-inset);
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  border: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.analytics-card__chart::after {
+  content: "Awaiting sensor stream…";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   13. MAINTENANCE SECTION
+   ========================================================================== */
+.maintenance-card {
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.maintenance-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.maintenance-card__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.maintenance-card__item {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-cyan-dim);
+}
+
+.maintenance-card__item dt {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.maintenance-card__item dd {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   14. FOOTER
+   ========================================================================== */
+.app-footer {
+  padding: 18px clamp(16px, 3vw, 32px) 24px;
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.app-footer__brand {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.app-footer__note {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   15. RESPONSIVE — TABLET (≤ 1024px): sidebar collapses to icon rail
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: var(--sidebar-w-collapsed);
+    padding: 20px 8px;
+  }
+
+  .sidebar__label {
+    display: none;
+  }
+
+  .sidebar__link {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .ai-diagnosis-card__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   16. RESPONSIVE — MOBILE (≤ 768px): sidebar becomes a top scroll strip
+   ========================================================================== */
+@media (max-width: 768px) {
+  .app__body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: var(--navbar-h);
+    padding: 10px 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .sidebar__nav {
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .sidebar__link {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+  }
+
+  .sidebar__label {
+    display: block;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .hero-card {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-card__meta {
+    justify-content: center;
+  }
+
+  .sensor-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .ai-diagnosis-card__actions {
+    justify-content: stretch;
+  }
+
+  .ai-diagnosis-card__actions .btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   17. RESPONSIVE — SMALL MOBILE (≤ 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .navbar__subtitle {
+    display: none;
+  }
+
+  .status-text {
+    display: none;
+  }
+
+  .sensor-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ai-diagnosis-card__result {
+    grid-template-columns: 1fr;
+  }
+}
